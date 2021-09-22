@@ -1,3 +1,30 @@
 from django.db import models
 
-# Create your models here.
+
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=100)
+
+
+class Item(models.Model):
+    MEDIDA_CHOICES = (
+        (1, 'UNIDAD'),
+        (2, 'KILOGRAMO'),
+        (3, 'MILILITROS'),
+    )
+    id = models.AutoField(primary_key=True)
+    codigo = models.CharField(max_length=20)
+    nombre = models.CharField(max_length=100)
+    stock = models.IntegerField(default=0)
+    price = models.FloatField()
+    categoria = models.ForeignKey(
+        Categoria,
+        related_name='items',
+        on_delete=models.CASCADE
+    )
+    sumary = models.TextField(null=True, blank=True)
+    unidad_medida = models.PositiveSmallIntegerField(choices=MEDIDA_CHOICES)
+    activo = models.BooleanField(default=True)
+    tiene_igv = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.codigo
