@@ -9,7 +9,8 @@ class CategoriaSerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    categoria = serializers.SlugRelatedField(slug_field='nombre', read_only=True)
+    # categoria = serializers.SlugRelatedField(slug_field='nombre', read_only=True)
+    categoria = CategoriaSerializer()
     price_without_igv = serializers.FloatField(read_only=True)
 
     class Meta:
