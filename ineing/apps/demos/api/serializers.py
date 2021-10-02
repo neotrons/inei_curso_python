@@ -15,7 +15,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('id', 'codigo', 'nombre', 'stock', 'price', 'price_without_igv', 'categoria')
+        fields = ('id', 'codigo', 'nombre', 'stock', 'price', 'price_without_igv', 'categoria', 'activo', 'tiene_igv')
 
 
 class CustomSerializer(serializers.Serializer):
