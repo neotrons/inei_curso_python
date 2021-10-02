@@ -1,4 +1,4 @@
-from rest_framework import mixins
+from rest_framework import mixins, permissions
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from ..models import Categoria, Item
@@ -17,6 +17,7 @@ class CategoriaViewSet(ModelViewSet):
 class ItemViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    permission_classes = [permissions.AllowAny]
 
 
 class CustomViewSet(GenericViewSet):

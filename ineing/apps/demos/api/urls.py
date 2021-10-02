@@ -6,6 +6,6 @@ app_name = 'api_demos'
 router = DefaultRouter()
 router.register(r'categoria', CategoriaViewSet)
 router.register(r'item', ItemViewSet)
-router.register(r'custom', CustomViewSet)
+# router.register(r'custom', CustomViewSet)
 
 urlpatterns = router.urls
