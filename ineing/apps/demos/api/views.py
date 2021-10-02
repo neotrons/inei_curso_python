@@ -1,4 +1,4 @@
-from rest_framework import mixins, permissions
+from rest_framework import mixins, permissions, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -19,6 +19,9 @@ class ItemViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [permissions.AllowAny]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['nombre']
+    ordering_fields = ['price']
 
     @action(methods=['GET'], url_path='activos', detail=False)
     def actives(self, request, *args, **kwargs):
