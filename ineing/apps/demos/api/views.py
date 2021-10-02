@@ -1,5 +1,6 @@
 from rest_framework import mixins, permissions
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from ..models import Categoria, Item
 from .serializers import CategoriaSerializer, ItemSerializer, CustomSerializer
@@ -18,6 +19,19 @@ class ItemViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [permissions.AllowAny]
+
+    @action(methods=['GET'], url_path='activos', detail=False)
+    def actives(self, request, *args, **kwargs):
+        queryset = self.queryset.filter(activo=True)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['GET'], url_path=r'categoria/(?P<category_id>[0-9]+)', detail=False)
+    def by_category(self, request, *args, **kwargs):
+        category_id = int(kwargs.get('category_id'))
+        queryset = self.queryset.filter(categoria_id=category_id)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class CustomViewSet(GenericViewSet):
