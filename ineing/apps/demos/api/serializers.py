@@ -16,3 +16,8 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ('id', 'codigo', 'nombre', 'stock', 'price', 'price_without_igv', 'categoria')
+
+
+class CustomSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    codigo = serializers.CharField()
