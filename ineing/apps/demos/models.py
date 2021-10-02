@@ -43,6 +43,13 @@ class Item(models.Model):
     def __str__(self):
         return self.codigo
 
+    @property
+    def price_without_igv(self):
+        igv = 1.18
+        if self.tiene_igv:
+            return self.price / igv
+        return self.price
+
 
 class Proveedor(models.Model):
     codigo = models.AutoField(db_column='CODIGO', primary_key=True)  # Field name made lowercase.

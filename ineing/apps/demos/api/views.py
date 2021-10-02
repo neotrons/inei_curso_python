@@ -1,6 +1,7 @@
-from rest_framework.viewsets import ModelViewSet
-from ..models import Categoria
-from .serializers import CategoriaSerializer
+from rest_framework import mixins
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from ..models import Categoria, Item
+from .serializers import CategoriaSerializer, ItemSerializer
 
 
 class CategoriaViewSet(ModelViewSet):
@@ -10,3 +11,8 @@ class CategoriaViewSet(ModelViewSet):
     """
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
+
+
+class ItemViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
